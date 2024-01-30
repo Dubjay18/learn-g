@@ -19,6 +19,25 @@ package main
 
 import "fmt"
 
+func greet(name string) string {
+	return "yo" + name
+}
+func rando() string {
+	return "i alone i'm the honoured one"
+}
+func sum(num1, num2, num3 int) int {
+	return num1 + num2 + num3
+}
+func anyNum() int {
+	return 909
+}
+func two() (int, int) {
+	return 4, 4
+}
 func main() {
+	fmt.Println(greet("Jay"))
+	fmt.Println(rando())
+	fmt.Println(sum(1, 2, 3))
+	fmt.Println(anyNum())
 
 }
