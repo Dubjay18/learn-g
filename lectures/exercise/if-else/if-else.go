@@ -49,13 +49,12 @@ func main() {
 	// The day and role. Change these to check your work.
 	today, role := Tuesday, Guest
 
-	if role == Guest {
-		if today == Monday || today == Wednesday || today == Friday {
-			accessGranted()
-		} else {
-			accessDenied()
-		}
+	if role == Guest && (today == Monday || today == Wednesday || today == Friday) {
+		accessGranted()
+	} else {
+		accessDenied()
 	}
+
 	if role == Admin || role == Manager {
 		accessGranted()
 	}
