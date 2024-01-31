@@ -18,6 +18,38 @@ package main
 
 import "fmt"
 
-func main() {
+type Product struct {
+	name  string
+	price int
+}
 
+func calculateTotalCost(list [4]Product) int {
+	var sum int
+	for i := 0; i < len(list); i++ {
+		item := list[i]
+		sum += item.price
+	}
+	return sum
+}
+func main() {
+	shoppingList := [4]Product{}
+	shoppingList[0] = Product{
+		name:  "gun",
+		price: 25,
+	}
+	shoppingList[1] = Product{
+		name:  "tissue",
+		price: 205,
+	}
+	shoppingList[2] = Product{
+		name:  "katana",
+		price: 2005,
+	}
+
+	fmt.Println(shoppingList[len(shoppingList)-1], len(shoppingList), calculateTotalCost(shoppingList))
+	shoppingList[3] = Product{
+		name:  "Watch",
+		price: 20000005,
+	}
+	fmt.Println(shoppingList[3])
 }
