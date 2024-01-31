@@ -20,8 +20,7 @@ package main
 import "fmt"
 
 type rectangle struct {
-	width  int
-	height int
+	width, height int
 }
 
 func (rect rectangle) area() int {
