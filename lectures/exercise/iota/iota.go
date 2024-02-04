@@ -16,7 +16,34 @@ package main
 
 import "fmt"
 
+const (
+	Add = iota
+	Subtract
+	Multiply
+	Divide
+)
+
+type operation int
+
+func (o operation) calculate(a, b float64) float64 {
+	switch o {
+	case Add:
+		return a + b
+	case Subtract:
+		return a - b
+	case Multiply:
+		return a * b
+	case Divide:
+		return a / b
+	}
+	return 0
+}
 func main() {
+	add := operation(Add)
+	sub := operation(Subtract)
+	mul := operation(Multiply)
+	div := operation(Divide)
+
 	fmt.Println(add.calculate(2, 2)) // = 4
 
 	fmt.Println(sub.calculate(10, 3)) // = 7
