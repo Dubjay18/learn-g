@@ -18,6 +18,40 @@ package main
 
 import "fmt"
 
-func main() {
+const (
+	Active   = true
+	Inactive = false
+)
 
+type securityTag bool
+type Item struct {
+	name string
+	tag  securityTag
+}
+
+func activate(tag *securityTag) {
+	*tag = Active
+	fmt.Println(tag, "Activated")
+}
+func deactivate(tag *securityTag) {
+	*tag = Inactive
+	fmt.Println(&tag, "Deactivated")
+}
+func checkout(items []Item) {
+	for i := 0; i < len(items); i++ {
+		deactivate(&items[i].tag)
+	}
+	fmt.Println(items)
+}
+
+func main() {
+	item1 := Item{tag: Active, name: "bag"}
+	item2 := Item{tag: Active, name: "toy"}
+	item3 := Item{tag: Active, name: "book"}
+	item4 := Item{tag: Active, name: "pen"}
+
+	items := []Item{item1, item2, item3, item4}
+	deactivate(&items[1].tag)
+	checkout(items)
+	fmt.Println(items)
 }
