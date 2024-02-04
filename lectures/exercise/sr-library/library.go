@@ -32,7 +32,7 @@ type lendAudit struct {
 	checkInTime  time.Time
 }
 
-type Memeber struct {
+type Member struct {
 	name  MemberName
 	books map[BookTitle]lendAudit
 }
@@ -43,10 +43,10 @@ type BookEntry struct {
 }
 type library struct {
 	books   map[BookTitle]BookEntry
-	members map[MemberName]Memeber
+	members map[MemberName]Member
 }
 
-func printMemberAudit(m *Memeber) {
+func printMemberAudit(m *Member) {
 	for book, audit := range m.books {
 		var returnTime string
 		if audit.checkInTime.IsZero() {
@@ -69,7 +69,7 @@ func printLibraryBooks(library *library) {
 	}
 	fmt.Println()
 }
-func checkoutBook(library *library, book BookTitle, member Memeber) {
+func checkoutBook(library *library, book BookTitle, member Member) {
 	entry, found := library.books[book]
 	if !found {
 		panic("book not found")
@@ -82,7 +82,7 @@ func checkoutBook(library *library, book BookTitle, member Memeber) {
 	member.books[book] = lendAudit{checkOutTime: time.Now()}
 
 }
-func returnBook(library *library, book BookTitle, member Memeber) {
+func returnBook(library *library, book BookTitle, member Member) {
 	entry, found := library.books[book]
 	if !found {
 		panic("book not found")
@@ -102,16 +102,16 @@ func returnBook(library *library, book BookTitle, member Memeber) {
 func main() {
 	library := library{
 		books:   make(map[BookTitle]BookEntry),
-		members: make(map[MemberName]Memeber),
+		members: make(map[MemberName]Member),
 	}
 	library.books["The Hobbit"] = BookEntry{total: 1, lended: 0}
 	library.books["The Lord of the Rings"] = BookEntry{total: 3, lended: 0}
 	library.books["The Silmarillion"] = BookEntry{total: 2, lended: 0}
 	library.books["The Children of Hurin"] = BookEntry{total: 1, lended: 0}
 
-	library.members["John"] = Memeber{name: "John", books: make(map[BookTitle]lendAudit)}
-	library.members["Jane"] = Memeber{name: "Jane", books: make(map[BookTitle]lendAudit)}
-	library.members["Jack"] = Memeber{name: "Jack", books: make(map[BookTitle]lendAudit)}
+	library.members["John"] = Member{name: "John", books: make(map[BookTitle]lendAudit)}
+	library.members["Jane"] = Member{name: "Jane", books: make(map[BookTitle]lendAudit)}
+	library.members["Jack"] = Member{name: "Jack", books: make(map[BookTitle]lendAudit)}
 
 	printLibraryBooks(&library)
 
