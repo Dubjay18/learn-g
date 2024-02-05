@@ -20,6 +20,7 @@ func TestParseTime(t *testing.T) {
 		{"14:07:33", true},
 		{"14:07:33", true},
 		{"14:07:33", true},
+		{"14:07:33", true},
 	}
 	for _, test := range table {
 		_, err := ParseTime(test.time)
