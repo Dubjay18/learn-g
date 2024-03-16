@@ -36,4 +36,43 @@ import (
 
 func main() {
 	files := []string{"num1.txt", "num2.txt", "num3.txt", "num4.txt", "num5.txt"}
+	var grandTotal int
+	sumFile := func(file string) {
+		f, err := os.Open(file)
+		if err != nil {
+			fmt.Println("Error:", err.Error())
+
+		}
+		defer func(f *os.File) {
+			err := f.Close()
+			if err != nil {
+				fmt.Println("Error:", err.Error())
+			}
+		}(f)
+		var total int
+		scanner := bufio.NewScanner(f)
+		for scanner.Scan() {
+			num, err := strconv.Atoi(scanner.Text())
+			if err != nil {
+				fmt.Println("Error:", err.Error())
+				continue
+			}
+			total += num
+		}
+		if err := scanner.Err(); err != nil && err != io.EOF {
+			fmt.Println("Error:", err.Error())
+		}
+		fmt.Println(file, "total:", total)
+		grandTotal += total
+
+	}
+
+	// Add your code here:
+	for _, file := range files {
+		go sumFile(file)
+
+	}
+	time.Sleep(100 * time.Millisecond)
+	fmt.Println("Grand total:", grandTotal)
+
 }
