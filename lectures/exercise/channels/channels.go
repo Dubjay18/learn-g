@@ -36,8 +36,29 @@ func makeJobs() []Job {
 	}
 	return jobs
 }
+func runJob(job Job, resultChan chan int) {
+	resultChan <- longCalculation(job)
+}
 
 func main() {
 	rand.New(rand.NewSource(time.Now().UnixNano()))
 	jobs := makeJobs()
+
+	resultChan := make(chan int, 10)
+
+	for _, job := range jobs {
+		go runJob(job, resultChan)
+	}
+
+	resultNum := 0
+	sum := 0
+	for {
+		result := <-resultChan
+		sum += result
+		resultNum++
+		if resultNum == len(jobs) {
+			break
+
+		}
+	}
 }
